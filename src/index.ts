@@ -1,9 +1,33 @@
-import { BoxSpec } from "./types";
+import { BoxSpec, BoardConfig } from "./types";
 import { calculatePanels } from "./calculator";
-import { renderBoxList, renderPanelList } from "./ui";
+import { packPanels, DEFAULT_BOARD_CONFIG } from "./packer";
+import {
+  renderBoxList,
+  renderPanelList,
+  renderBoardInfo,
+  renderBoardWarnings,
+  renderBoardVisualization,
+} from "./ui";
+
+// Storage
+const STORAGE_KEY = "foamcore-boxes";
+
+function saveBoxes(): void {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(boxes));
+}
+
+function loadBoxes(): BoxSpec[] {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (!stored) return [];
+  try {
+    return JSON.parse(stored);
+  } catch {
+    return [];
+  }
+}
 
 // State
-const boxes: BoxSpec[] = [];
+const boxes: BoxSpec[] = loadBoxes();
 
 // DOM elements
 const thicknessInput = document.getElementById("thickness") as HTMLInputElement;
@@ -20,6 +44,16 @@ const calculateBtn = document.getElementById(
 ) as HTMLButtonElement;
 const resultsSection = document.getElementById("results") as HTMLElement;
 const panelListContainer = document.getElementById("panel-list") as HTMLElement;
+
+// Board settings elements
+const boardWidthInput = document.getElementById("board-width") as HTMLInputElement;
+const boardHeightInput = document.getElementById("board-height") as HTMLInputElement;
+const boardMarginInput = document.getElementById("board-margin") as HTMLInputElement;
+const boardKerfInput = document.getElementById("board-kerf") as HTMLInputElement;
+const boardLayoutSection = document.getElementById("board-layout") as HTMLElement;
+const boardInfoContainer = document.getElementById("board-info") as HTMLElement;
+const boardWarningsContainer = document.getElementById("board-warnings") as HTMLElement;
+const boardVisualizationContainer = document.getElementById("board-visualization") as HTMLElement;
 
 // Event handlers
 addBoxBtn.addEventListener("click", () => {
@@ -39,6 +73,7 @@ addBoxBtn.addEventListener("click", () => {
   }
 
   boxes.push({ name, width, depth, height });
+  saveBoxes();
 
   // Clear form
   boxNameInput.value = "";
@@ -61,18 +96,49 @@ calculateBtn.addEventListener("click", () => {
     return;
   }
 
+  // Get board config
+  const boardConfig: BoardConfig = {
+    width: parseFloat(boardWidthInput.value) || DEFAULT_BOARD_CONFIG.width,
+    height: parseFloat(boardHeightInput.value) || DEFAULT_BOARD_CONFIG.height,
+    margin: parseFloat(boardMarginInput.value) ?? DEFAULT_BOARD_CONFIG.margin,
+    kerf: parseFloat(boardKerfInput.value) ?? DEFAULT_BOARD_CONFIG.kerf,
+  };
+
+  // Validate board config
+  if (boardConfig.width <= 0 || boardConfig.height <= 0) {
+    alert("Board dimensions must be positive numbers.");
+    return;
+  }
+
+  if (boardConfig.margin < 0 || boardConfig.kerf < 0) {
+    alert("Margin and kerf must be non-negative.");
+    return;
+  }
+
   const panels = calculatePanels(boxes, thickness);
   renderPanelList(panels, thickness, panelListContainer);
   resultsSection.classList.remove("hidden");
+
+  // Pack panels and render board layout
+  const packingResult = packPanels(panels, boardConfig);
+  renderBoardInfo(boardConfig, boardInfoContainer);
+  renderBoardWarnings(packingResult, boardWarningsContainer);
+  renderBoardVisualization(packingResult, boardVisualizationContainer);
+  boardLayoutSection.classList.remove("hidden");
 });
 
 function updateBoxList(): void {
   renderBoxList(boxes, boxListContainer, (index) => {
     boxes.splice(index, 1);
+    saveBoxes();
     updateBoxList();
     resultsSection.classList.add("hidden");
+    boardLayoutSection.classList.add("hidden");
   });
 }
+
+// Render any boxes loaded from storage
+updateBoxList();
 
 // Register service worker
 if ("serviceWorker" in navigator) {

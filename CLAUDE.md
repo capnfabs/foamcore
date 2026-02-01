@@ -26,3 +26,25 @@ For a box with dimensions W×D×H and material thickness T:
 - **Base** (1×): (W - 2T) × (D - 2T)
 
 All dimensions are in millimeters. Default thickness is 5mm (standard foam core).
+
+## Board Layout (Bin Packing)
+
+The calculator includes a board layout optimizer using guillotine bin packing:
+
+- **Packer**: `src/packer.ts` - Guillotine Best Area Fit algorithm
+- **Board defaults**: 700×500mm board, 5mm edge margin, 1mm cut kerf
+- **Usable area**: Board size minus margins (default 690×490mm)
+
+### Algorithm
+1. Expand panels by quantity into individual instances
+2. Sort by area (largest first)
+3. For each panel, find the best fitting free rectangle (smallest area that fits)
+4. Allow 90° rotation if needed
+5. Split remaining space using guillotine cuts
+6. Create new boards as needed
+
+### Types (in `src/types.ts`)
+- `BoardConfig`: width, height, margin, kerf
+- `PlacedPanel`: panel reference with x, y position and rotation flag
+- `Board`: list of placements with efficiency percentage
+- `PackingResult`: boards, unplaceable panels, and config
