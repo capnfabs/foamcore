@@ -3,6 +3,7 @@ export interface BoxSpec {
   width: number;  // mm
   depth: number;  // mm
   height: number; // mm
+  quantity: number;
 }
 
 export interface Panel {

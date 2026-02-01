@@ -15,7 +15,7 @@ export function calculatePanels(boxes: BoxSpec[], thickness: number): Panel[] {
   const panels: Panel[] = [];
 
   for (const box of boxes) {
-    const { name, width, depth, height } = box;
+    const { name, width, depth, height, quantity = 1 } = box;
 
     // Front & Back: full width × height
     panels.push({
@@ -23,7 +23,7 @@ export function calculatePanels(boxes: BoxSpec[], thickness: number): Panel[] {
       label: "Front & Back",
       width: width,
       height: height,
-      quantity: 2,
+      quantity: 2 * quantity,
     });
 
     // Left & Right Sides: depth minus front/back thickness on both sides
@@ -32,7 +32,7 @@ export function calculatePanels(boxes: BoxSpec[], thickness: number): Panel[] {
       label: "Left & Right Sides",
       width: depth - 2 * thickness,
       height: height,
-      quantity: 2,
+      quantity: 2 * quantity,
     });
 
     // Base: fits inside all four walls
@@ -41,7 +41,7 @@ export function calculatePanels(boxes: BoxSpec[], thickness: number): Panel[] {
       label: "Base",
       width: width - 2 * thickness,
       height: depth - 2 * thickness,
-      quantity: 1,
+      quantity: 1 * quantity,
     });
   }
 

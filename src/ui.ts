@@ -4,7 +4,9 @@ import { getUsableArea } from "./packer";
 export function renderBoxList(
   boxes: BoxSpec[],
   container: HTMLElement,
-  onRemove: (index: number) => void
+  onRemove: (index: number) => void,
+  onQuantityChange?: (index: number, quantity: number) => void,
+  oversizedBoxes?: Set<number>
 ): void {
   if (boxes.length === 0) {
     container.innerHTML =
@@ -16,18 +18,31 @@ export function renderBoxList(
     .map(
       (box, index) => `
       <div class="flex items-center justify-between bg-gray-50 p-3 rounded-md">
-        <div>
+        <div class="flex items-center gap-2">
+          ${oversizedBoxes?.has(index) ? '<span title="Panels exceed board size" class="text-amber-500">&#9888;</span>' : ''}
           <span class="font-medium">${escapeHtml(box.name)}</span>
-          <span class="text-gray-500 text-sm ml-2">
+          <span class="text-gray-500 text-sm">
             ${box.width} × ${box.depth} × ${box.height} mm
           </span>
         </div>
-        <button
-          data-index="${index}"
-          class="remove-box-btn text-red-600 hover:text-red-800 text-sm font-medium"
-        >
-          Remove
-        </button>
+        <div class="flex items-center gap-3">
+          <label class="flex items-center gap-1 text-sm text-gray-600">
+            Qty:
+            <input
+              type="number"
+              data-index="${index}"
+              value="${box.quantity}"
+              min="1"
+              class="quantity-input w-14 px-2 py-1 border border-gray-300 rounded text-center"
+            />
+          </label>
+          <button
+            data-index="${index}"
+            class="remove-box-btn text-red-600 hover:text-red-800 text-sm font-medium"
+          >
+            Remove
+          </button>
+        </div>
       </div>
     `
     )
@@ -42,6 +57,18 @@ export function renderBoxList(
       onRemove(index);
     });
   });
+
+  if (onQuantityChange) {
+    container.querySelectorAll(".quantity-input").forEach((input) => {
+      input.addEventListener("change", (e) => {
+        const target = e.target as HTMLInputElement;
+        const index = parseInt(target.dataset.index || "0", 10);
+        const quantity = Math.max(1, parseInt(target.value, 10) || 1);
+        target.value = String(quantity);
+        onQuantityChange(index, quantity);
+      });
+    });
+  }
 }
 
 export function renderPanelList(
