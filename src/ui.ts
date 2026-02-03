@@ -10,7 +10,7 @@ export function renderBoxList(
 ): void {
   if (boxes.length === 0) {
     container.innerHTML =
-      '<p class="text-gray-500 text-sm">No boxes added yet.</p>';
+      '<p class="text-gray-500 text-sm">Add a box to start.</p>';
     return;
   }
 

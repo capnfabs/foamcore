@@ -141,6 +141,9 @@ const boxHeightInput = document.getElementById(
   "box-height"
 ) as HTMLInputElement;
 const addBoxBtn = document.getElementById("add-box-btn") as HTMLButtonElement;
+const openAddBoxBtn = document.getElementById("open-add-box-btn") as HTMLButtonElement;
+const cancelAddBoxBtn = document.getElementById("cancel-add-box-btn") as HTMLButtonElement;
+const addBoxDialog = document.getElementById("add-box-dialog") as HTMLDialogElement;
 const boxListContainer = document.getElementById("box-list") as HTMLElement;
 const resultsSection = document.getElementById("results") as HTMLElement;
 const panelListContainer = document.getElementById("panel-list") as HTMLElement;
@@ -196,11 +199,14 @@ function addBox(): void {
   boxWidthInput.value = "";
   boxDepthInput.value = "";
 
+  addBoxDialog.close();
   updateBoxList();
   recalculate();
 }
 
 // Event handlers
+openAddBoxBtn.addEventListener("click", () => addBoxDialog.showModal());
+cancelAddBoxBtn.addEventListener("click", () => addBoxDialog.close());
 addBoxBtn.addEventListener("click", addBox);
 
 // Enter key support for all input fields
