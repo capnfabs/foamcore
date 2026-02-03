@@ -6,17 +6,21 @@ import {
   renderPanelList,
   renderBoardWarnings,
   renderBoardVisualization,
+  setTheme as setUiTheme,
 } from "./ui";
 
 // Storage
 const BOXES_STORAGE_KEY = "foamcore-boxes";
 const SETTINGS_STORAGE_KEY = "foamcore-settings";
 
+type Theme = "technical" | "foamcore";
+
 interface Settings {
   thickness: number;
   kerf: number;
   boardWidth: number;
   boardHeight: number;
+  theme: Theme;
 }
 
 const DEFAULT_SETTINGS: Settings = {
@@ -24,6 +28,7 @@ const DEFAULT_SETTINGS: Settings = {
   kerf: 1,
   boardWidth: 700,
   boardHeight: 500,
+  theme: "technical",
 };
 
 function saveBoxes(): void {
@@ -51,6 +56,7 @@ function saveSettings(): void {
     kerf: parseFloat(boardKerfInput.value) ?? DEFAULT_SETTINGS.kerf,
     boardWidth: parseFloat(boardWidthInput.value) || DEFAULT_SETTINGS.boardWidth,
     boardHeight: parseFloat(boardHeightInput.value) || DEFAULT_SETTINGS.boardHeight,
+    theme: currentTheme,
   };
   localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
 }
@@ -63,6 +69,23 @@ function loadSettings(): Settings {
     return { ...DEFAULT_SETTINGS, ...parsed };
   } catch {
     return DEFAULT_SETTINGS;
+  }
+}
+
+// Theme state
+let currentTheme: Theme = DEFAULT_SETTINGS.theme;
+
+function applyTheme(theme: Theme): void {
+  currentTheme = theme;
+  document.documentElement.dataset.theme = theme;
+  setUiTheme(theme);
+  updateThemeButtonText();
+}
+
+function updateThemeButtonText(): void {
+  const btn = document.getElementById("theme-toggle");
+  if (btn) {
+    btn.textContent = currentTheme === "technical" ? "🤘 #foamcore 🤘" : "Technical Drawing";
   }
 }
 
@@ -156,6 +179,9 @@ const boardLayoutSection = document.getElementById("board-layout") as HTMLElemen
 const boardWarningsContainer = document.getElementById("board-warnings") as HTMLElement;
 const boardVisualizationContainer = document.getElementById("board-visualization") as HTMLElement;
 
+// Theme toggle
+const themeToggleBtn = document.getElementById("theme-toggle") as HTMLButtonElement;
+
 // Add box function
 function addBox(): void {
   let name = boxNameInput.value.trim();
@@ -208,6 +234,14 @@ function addBox(): void {
 openAddBoxBtn.addEventListener("click", () => addBoxDialog.showModal());
 cancelAddBoxBtn.addEventListener("click", () => addBoxDialog.close());
 addBoxBtn.addEventListener("click", addBox);
+
+// Theme toggle handler
+themeToggleBtn.addEventListener("click", () => {
+  const newTheme: Theme = currentTheme === "technical" ? "foamcore" : "technical";
+  applyTheme(newTheme);
+  saveSettings();
+  recalculate(); // Re-render board visualization with new theme colors
+});
 
 // Enter key support for all input fields
 [boxNameInput, boxWidthInput, boxDepthInput, boxHeightInput].forEach((input) => {
@@ -285,6 +319,9 @@ thicknessInput.value = String(savedSettings.thickness);
 boardKerfInput.value = String(savedSettings.kerf);
 boardWidthInput.value = String(savedSettings.boardWidth);
 boardHeightInput.value = String(savedSettings.boardHeight);
+
+// Apply saved theme
+applyTheme(savedSettings.theme);
 
 // Render any boxes loaded from storage and calculate
 updateBoxList();

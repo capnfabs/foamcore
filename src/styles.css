@@ -2,13 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* Technical Drawing Theme (default) */
+:root, :root[data-theme="technical"] {
   --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
   --color-ink: #1a1a1a;
   --color-ink-light: #555;
   --color-paper: #fafafa;
   --color-grid: #e0e0e0;
   --color-accent: #0066cc;
+  --color-panel-bg: white;
+  --color-input-bg: white;
+}
+
+/* 🤘 #foamcore 🤘 Theme */
+:root[data-theme="foamcore"] {
+  --color-ink: #ffffff;
+  --color-ink-light: #999999;
+  --color-paper: #1a1a1a;
+  --color-grid: #333333;
+  --color-accent: #dc2626;
+  --color-panel-bg: #222222;
+  --color-input-bg: #333333;
 }
 
 body {
@@ -18,14 +32,24 @@ body {
     linear-gradient(var(--color-grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
   background-size: 20px 20px;
+  color: var(--color-ink);
+}
+
+/* Foamcore theme: solid black background, no grid */
+:root[data-theme="foamcore"] body {
+  background-image: none;
 }
 
 /* Technical panel style */
 .tech-panel {
-  background: var(--color-paper);
+  background: var(--color-panel-bg);
   border: 1px solid var(--color-ink);
   padding: 1rem;
   margin-bottom: 1rem;
+}
+
+:root[data-theme="foamcore"] .tech-panel {
+  border-color: var(--color-accent);
 }
 
 .tech-panel-title {
@@ -43,14 +67,29 @@ body {
 .tech-input {
   font-family: var(--font-mono);
   font-size: 0.875rem;
-  background: white;
+  background: var(--color-input-bg);
   border: 1px solid var(--color-ink);
   padding: 0.5rem;
+  color: var(--color-ink);
 }
 
 .tech-input:focus {
   outline: 2px solid var(--color-accent);
   outline-offset: 1px;
+}
+
+:root[data-theme="foamcore"] .tech-input {
+  border-color: var(--color-accent);
+}
+
+:root[data-theme="foamcore"] .tech-input::placeholder {
+  color: var(--color-ink-light);
+}
+
+/* Number input spinners in foamcore theme */
+:root[data-theme="foamcore"] .tech-input[type="number"]::-webkit-inner-spin-button,
+:root[data-theme="foamcore"] .tech-input[type="number"]::-webkit-outer-spin-button {
+  filter: invert(1);
 }
 
 /* Technical button style */
@@ -59,16 +98,17 @@ body {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background: white;
+  background: var(--color-input-bg);
   border: 1px solid var(--color-ink);
   padding: 0.5rem 1rem;
   cursor: pointer;
-  transition: background-color 0.1s;
+  transition: background-color 0.1s, color 0.1s;
+  color: var(--color-ink);
 }
 
 .tech-btn:hover {
   background: var(--color-ink);
-  color: white;
+  color: var(--color-paper);
 }
 
 .tech-btn:focus {
@@ -78,11 +118,30 @@ body {
 
 .tech-btn-primary {
   background: var(--color-ink);
-  color: white;
+  color: var(--color-paper);
 }
 
 .tech-btn-primary:hover {
-  background: white;
+  background: var(--color-input-bg);
+  color: var(--color-ink);
+}
+
+:root[data-theme="foamcore"] .tech-btn {
+  border-color: var(--color-accent);
+}
+
+:root[data-theme="foamcore"] .tech-btn:hover {
+  background: var(--color-accent);
+  color: white;
+}
+
+:root[data-theme="foamcore"] .tech-btn-primary {
+  background: var(--color-accent);
+  color: white;
+}
+
+:root[data-theme="foamcore"] .tech-btn-primary:hover {
+  background: var(--color-input-bg);
   color: var(--color-ink);
 }
 
@@ -100,13 +159,22 @@ body {
 dialog.tech-dialog {
   border: 2px solid var(--color-ink);
   padding: 0;
-  background: var(--color-paper);
+  background: var(--color-panel-bg);
   font-family: var(--font-mono);
+  color: var(--color-ink);
 }
 
 dialog.tech-dialog::backdrop {
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(2px);
+}
+
+:root[data-theme="foamcore"] dialog.tech-dialog {
+  border-color: var(--color-accent);
+}
+
+:root[data-theme="foamcore"] dialog.tech-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.7);
 }
 
 /* Details/Summary styling */
@@ -130,7 +198,7 @@ details.tech-panel[open] > summary::before {
 
 /* Collapsible sections */
 details.tech-panel {
-  background: var(--color-paper);
+  background: var(--color-panel-bg);
   border: 1px solid var(--color-ink);
   margin-bottom: 1rem;
 }
@@ -146,6 +214,14 @@ details.tech-panel > summary {
 
 details.tech-panel[open] > summary {
   border-bottom: 1px solid var(--color-ink);
+}
+
+:root[data-theme="foamcore"] details.tech-panel {
+  border-color: var(--color-accent);
+}
+
+:root[data-theme="foamcore"] details.tech-panel[open] > summary {
+  border-bottom-color: var(--color-accent);
 }
 
 /* Box list item */
@@ -164,13 +240,23 @@ details.tech-panel[open] > summary {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
+  background: var(--color-input-bg);
   border: 1px solid var(--color-ink);
   cursor: pointer;
+  color: var(--color-ink);
 }
 
 .tech-add-btn:hover {
   background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+:root[data-theme="foamcore"] .tech-add-btn {
+  border-color: var(--color-accent);
+}
+
+:root[data-theme="foamcore"] .tech-add-btn:hover {
+  background: var(--color-accent);
   color: white;
 }
 
@@ -188,4 +274,9 @@ details.tech-panel[open] > summary {
   text-decoration: underline;
   text-decoration-style: dashed;
   text-decoration-color: var(--color-grid);
+}
+
+:root[data-theme="foamcore"] .tech-remove:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
 }

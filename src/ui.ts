@@ -126,7 +126,7 @@ function escapeHtml(text: string): string {
 }
 
 // Colors and hatch patterns for technical drawing look
-const PANEL_COLORS = [
+const PANEL_COLORS_TECHNICAL = [
   "#2563eb", // blue
   "#16a34a", // green
   "#dc2626", // red
@@ -137,11 +137,35 @@ const PANEL_COLORS = [
   "#854d0e", // amber
 ];
 
+// Foamcore theme: red, dark red, grey, white variations
+const PANEL_COLORS_FOAMCORE = [
+  "#dc2626", // red
+  "#991b1b", // dark red
+  "#ffffff", // white
+  "#666666", // grey
+  "#ff0000", // bright red
+  "#7f1d1d", // darker red
+  "#cccccc", // light grey
+  "#444444", // dark grey
+];
+
 const HATCH_ANGLES = [45, -45, 0, 90, 30, -30, 60, -60];
 
+// Theme state for UI
+let currentUiTheme: "technical" | "foamcore" = "technical";
+
+export function setTheme(theme: "technical" | "foamcore"): void {
+  currentUiTheme = theme;
+}
+
+function getPanelColors(): string[] {
+  return currentUiTheme === "foamcore" ? PANEL_COLORS_FOAMCORE : PANEL_COLORS_TECHNICAL;
+}
+
 function getPanelStyle(index: number): { color: string; angle: number } {
+  const colors = getPanelColors();
   return {
-    color: PANEL_COLORS[index % PANEL_COLORS.length],
+    color: colors[index % colors.length],
     angle: HATCH_ANGLES[index % HATCH_ANGLES.length],
   };
 }
@@ -189,6 +213,12 @@ export function renderBoardVisualization(result: PackingResult, container: HTMLE
   }
 
   const config = result.config;
+  const isFoamcore = currentUiTheme === "foamcore";
+
+  // Theme-aware colors for SVG
+  const boardStroke = isFoamcore ? "#dc2626" : "#1a1a1a";
+  const marginStroke = isFoamcore ? "#666666" : "#1a1a1a";
+  const boardBg = isFoamcore ? "#222222" : "white";
 
   // Scale factor: fit board to max 600px width
   const maxWidth = 600;
@@ -222,7 +252,7 @@ export function renderBoardVisualization(result: PackingResult, container: HTMLE
 
   // Summary
   let html = `
-    <div class="border p-3 mb-4 text-sm">
+    <div class="border p-3 mb-4 text-sm" style="border-color: ${boardStroke}">
       <span class="text-xs uppercase tracking-wide">Total boards needed:</span>
       <span class="font-bold ml-2">${result.boards.length}</span>
     </div>
@@ -238,15 +268,15 @@ export function renderBoardVisualization(result: PackingResult, container: HTMLE
           width="${svgWidth}"
           height="${svgHeight}"
           viewBox="0 0 ${config.width} ${config.height}"
-          class="bg-white"
+          style="background: ${boardBg}"
         >
           <defs>
             ${patternDefs}
           </defs>
           <!-- Board outline -->
-          <rect x="0" y="0" width="${config.width}" height="${config.height}" fill="none" stroke="#1a1a1a" stroke-width="2" />
+          <rect x="0" y="0" width="${config.width}" height="${config.height}" fill="none" stroke="${boardStroke}" stroke-width="2" />
           <!-- Margin area (dashed) -->
-          <rect x="${config.margin}" y="${config.margin}" width="${config.width - 2 * config.margin}" height="${config.height - 2 * config.margin}" fill="none" stroke="#1a1a1a" stroke-width="0.5" stroke-dasharray="4 2" />
+          <rect x="${config.margin}" y="${config.margin}" width="${config.width - 2 * config.margin}" height="${config.height - 2 * config.margin}" fill="none" stroke="${marginStroke}" stroke-width="0.5" stroke-dasharray="4 2" />
           <!-- Placed panels -->
           ${board.placements
             .map((placement) => renderPlacedPanel(placement, config.margin, labelPatternMap))
@@ -306,6 +336,12 @@ function renderPlacedPanel(
   const patternId = `hatch-${patternIdx}`;
   const style = getPanelStyle(patternIdx);
 
+  // Theme-aware colors
+  const isFoamcore = currentUiTheme === "foamcore";
+  const panelBg = isFoamcore ? "#333333" : "white";
+  const textColor = isFoamcore ? "#ffffff" : "#1a1a1a";
+  const dimColor = isFoamcore ? "#cccccc" : "#4a4a4a";
+
   // Calculate position including margin
   const px = margin + x;
   const py = margin + y;
@@ -351,7 +387,7 @@ function renderPlacedPanel(
         y="${py}"
         width="${w}"
         height="${h}"
-        fill="white"
+        fill="${panelBg}"
       />
       <rect
         x="${px}"
@@ -367,7 +403,7 @@ function renderPlacedPanel(
         y="${textStartY}"
         text-anchor="middle"
         font-size="${fontSize}"
-        fill="#1a1a1a"
+        fill="${textColor}"
         font-family="ui-monospace, monospace"
       >${labelTspans}</text>
       <text
@@ -375,7 +411,7 @@ function renderPlacedPanel(
         y="${textStartY + displayLines.length * lineHeight}"
         text-anchor="middle"
         font-size="${dimFontSize}"
-        fill="#4a4a4a"
+        fill="${dimColor}"
         font-family="ui-monospace, monospace"
       >${dimText}</text>
     </g>
