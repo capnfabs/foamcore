@@ -11,19 +11,19 @@ describe("calculatePanels", () => {
 
     expect(panels).toHaveLength(3);
 
-    // Front & Back: 100 × 50, qty 2
+    // Long panels (front/back): 100 × 50, qty 2 (width=100 > sideWidth=70)
     expect(panels[0]).toEqual({
       boxName: "Test Box",
-      label: "Front & Back",
+      label: "Long",
       width: 100,
       height: 50,
       quantity: 2,
     });
 
-    // Left & Right Sides: (80 - 10) × 50 = 70 × 50, qty 2
+    // Short panels (sides): (80 - 10) × 50 = 70 × 50, qty 2
     expect(panels[1]).toEqual({
       boxName: "Test Box",
-      label: "Left & Right Sides",
+      label: "Short",
       width: 70,
       height: 50,
       quantity: 2,

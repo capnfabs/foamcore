@@ -258,9 +258,10 @@ function renderPlacedPanel(
   const fontSize = Math.min(12, Math.max(8, Math.min(w, h) * 0.15));
   const dimFontSize = Math.max(6, fontSize * 0.85);
 
-  // Create label
+  // Create label: "BoxName.Side" format
+  const baseLabelText = `${panel.boxName}.${panel.label}`;
   const labelText =
-    panel.quantity > 1 ? `${panel.label} (${instanceIndex + 1})` : panel.label;
+    panel.quantity > 1 ? `${baseLabelText} (${instanceIndex + 1})` : baseLabelText;
 
   // Truncate label if too long
   const maxChars = Math.floor(w / (fontSize * 0.6));

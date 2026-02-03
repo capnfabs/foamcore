@@ -8,7 +8,7 @@ export interface BoxSpec {
 
 export interface Panel {
   boxName: string;
-  label: string;   // e.g., "Front", "Back", "Left Side", "Right Side", "Base"
+  label: string;   // "Long", "Short", or "Base"
   width: number;   // mm
   height: number;  // mm
   quantity: number;

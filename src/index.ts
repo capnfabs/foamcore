@@ -4,7 +4,6 @@ import { packPanels, DEFAULT_BOARD_CONFIG, getUsableArea } from "./packer";
 import {
   renderBoxList,
   renderPanelList,
-  renderBoardInfo,
   renderBoardWarnings,
   renderBoardVisualization,
 } from "./ui";
@@ -118,7 +117,6 @@ const boardWidthInput = document.getElementById("board-width") as HTMLInputEleme
 const boardHeightInput = document.getElementById("board-height") as HTMLInputElement;
 const boardKerfInput = document.getElementById("board-kerf") as HTMLInputElement;
 const boardLayoutSection = document.getElementById("board-layout") as HTMLElement;
-const boardInfoContainer = document.getElementById("board-info") as HTMLElement;
 const boardWarningsContainer = document.getElementById("board-warnings") as HTMLElement;
 const boardVisualizationContainer = document.getElementById("board-visualization") as HTMLElement;
 
@@ -223,7 +221,6 @@ calculateBtn.addEventListener("click", () => {
 
   // Pack panels and render board layout
   const packingResult = packPanels(panels, boardConfig);
-  renderBoardInfo(boardConfig, boardInfoContainer);
   renderBoardWarnings(packingResult, boardWarningsContainer);
   renderBoardVisualization(packingResult, boardVisualizationContainer);
   boardLayoutSection.classList.remove("hidden");
