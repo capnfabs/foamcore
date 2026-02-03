@@ -14,7 +14,6 @@ But! Getting the measurements right is a little fiddly, and it's annoying to try
 
 ## Next things to add:
 
-(0) - figure out why dev mode needs a cache reset + a hard refresh all the time.
 (1) - styles.
     - Two-column layout on desktop with calcs appearing on the right.
     - make it look like a technical drawing

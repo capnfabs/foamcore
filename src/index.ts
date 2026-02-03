@@ -251,8 +251,8 @@ function updateBoxList(): void {
 // Render any boxes loaded from storage
 updateBoxList();
 
-// Register service worker
-if ("serviceWorker" in navigator) {
+// Register service worker (production only)
+if ("serviceWorker" in navigator && process.env.NODE_ENV === "production") {
   navigator.serviceWorker.register(new URL("service-worker.ts", import.meta.url), {
     type: "module",
   });
