@@ -84,7 +84,7 @@ export function renderPanelList(
     grouped.set(panel.boxName, existing);
   }
 
-  let html = `<p class="text-sm text-gray-600 mb-4">Material thickness: ${thickness}mm</p>`;
+  let html = "";
 
   for (const [boxName, boxPanels] of grouped) {
     html += `
@@ -203,7 +203,14 @@ export function renderBoardVisualization(result: PackingResult, container: HTMLE
     }
   }
 
-  let html = "";
+  // Summary
+  let html = `
+    <div class="bg-gray-50 rounded-md p-3 mb-4 text-sm">
+      <p class="font-medium text-gray-700">
+        Total boards needed: <span class="text-blue-600">${result.boards.length}</span>
+      </p>
+    </div>
+  `;
 
   for (const board of result.boards) {
     html += `
@@ -225,15 +232,6 @@ export function renderBoardVisualization(result: PackingResult, container: HTMLE
       </div>
     `;
   }
-
-  // Summary
-  html += `
-    <div class="bg-gray-50 rounded-md p-3 text-sm">
-      <p class="font-medium text-gray-700">
-        Total boards needed: <span class="text-blue-600">${result.boards.length}</span>
-      </p>
-    </div>
-  `;
 
   container.innerHTML = html;
 }

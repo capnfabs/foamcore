@@ -9,14 +9,29 @@ import {
 } from "./ui";
 
 // Storage
-const STORAGE_KEY = "foamcore-boxes";
+const BOXES_STORAGE_KEY = "foamcore-boxes";
+const SETTINGS_STORAGE_KEY = "foamcore-settings";
+
+interface Settings {
+  thickness: number;
+  kerf: number;
+  boardWidth: number;
+  boardHeight: number;
+}
+
+const DEFAULT_SETTINGS: Settings = {
+  thickness: 5,
+  kerf: 1,
+  boardWidth: 700,
+  boardHeight: 500,
+};
 
 function saveBoxes(): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(boxes));
+  localStorage.setItem(BOXES_STORAGE_KEY, JSON.stringify(boxes));
 }
 
 function loadBoxes(): BoxSpec[] {
-  const stored = localStorage.getItem(STORAGE_KEY);
+  const stored = localStorage.getItem(BOXES_STORAGE_KEY);
   if (!stored) return [];
   try {
     const parsed = JSON.parse(stored);
@@ -27,6 +42,27 @@ function loadBoxes(): BoxSpec[] {
     }));
   } catch {
     return [];
+  }
+}
+
+function saveSettings(): void {
+  const settings: Settings = {
+    thickness: parseFloat(thicknessInput.value) || DEFAULT_SETTINGS.thickness,
+    kerf: parseFloat(boardKerfInput.value) ?? DEFAULT_SETTINGS.kerf,
+    boardWidth: parseFloat(boardWidthInput.value) || DEFAULT_SETTINGS.boardWidth,
+    boardHeight: parseFloat(boardHeightInput.value) || DEFAULT_SETTINGS.boardHeight,
+  };
+  localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+}
+
+function loadSettings(): Settings {
+  const stored = localStorage.getItem(SETTINGS_STORAGE_KEY);
+  if (!stored) return DEFAULT_SETTINGS;
+  try {
+    const parsed = JSON.parse(stored);
+    return { ...DEFAULT_SETTINGS, ...parsed };
+  } catch {
+    return DEFAULT_SETTINGS;
   }
 }
 
@@ -212,10 +248,10 @@ function recalculate(): void {
 }
 
 // Settings change listeners
-boardWidthInput.addEventListener("input", () => { updateBoxList(); recalculate(); });
-boardHeightInput.addEventListener("input", () => { updateBoxList(); recalculate(); });
-boardKerfInput.addEventListener("input", recalculate);
-thicknessInput.addEventListener("input", () => { updateBoxList(); recalculate(); });
+boardWidthInput.addEventListener("input", () => { saveSettings(); updateBoxList(); recalculate(); });
+boardHeightInput.addEventListener("input", () => { saveSettings(); updateBoxList(); recalculate(); });
+boardKerfInput.addEventListener("input", () => { saveSettings(); recalculate(); });
+thicknessInput.addEventListener("input", () => { saveSettings(); updateBoxList(); recalculate(); });
 
 function updateBoxList(): void {
   const oversizedBoxes = getOversizedBoxes();
@@ -236,6 +272,13 @@ function updateBoxList(): void {
     oversizedBoxes
   );
 }
+
+// Load settings from storage
+const savedSettings = loadSettings();
+thicknessInput.value = String(savedSettings.thickness);
+boardKerfInput.value = String(savedSettings.kerf);
+boardWidthInput.value = String(savedSettings.boardWidth);
+boardHeightInput.value = String(savedSettings.boardHeight);
 
 // Render any boxes loaded from storage and calculate
 updateBoxList();
