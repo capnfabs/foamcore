@@ -89,7 +89,7 @@ export function renderPanelList(
   for (const [boxName, boxPanels] of grouped) {
     html += `
       <div class="mb-4">
-        <h3 class="text-xs uppercase tracking-wide font-semibold mb-2 border-b border-current pb-1">${escapeHtml(boxName)}</h3>
+        <h3 class="text-xs uppercase tracking-wide font-semibold mb-3 border-b border-current pb-1">${escapeHtml(boxName)}</h3>
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-current">
@@ -222,7 +222,7 @@ export function renderBoardVisualization(result: PackingResult, container: HTMLE
 
   // Summary
   let html = `
-    <div class="border border-current p-3 mb-4 text-sm">
+    <div class="border p-3 mb-4 text-sm">
       <span class="text-xs uppercase tracking-wide">Total boards needed:</span>
       <span class="font-bold ml-2">${result.boards.length}</span>
     </div>
@@ -230,7 +230,7 @@ export function renderBoardVisualization(result: PackingResult, container: HTMLE
 
   for (const board of result.boards) {
     html += `
-      <div class="border border-current p-3 mb-4">
+      <div class="p-3 mb-4">
         <div class="mb-2 text-xs uppercase tracking-wide">
           Board ${board.id}
         </div>
@@ -238,7 +238,7 @@ export function renderBoardVisualization(result: PackingResult, container: HTMLE
           width="${svgWidth}"
           height="${svgHeight}"
           viewBox="0 0 ${config.width} ${config.height}"
-          class="border border-current bg-white"
+          class="bg-white"
         >
           <defs>
             ${patternDefs}

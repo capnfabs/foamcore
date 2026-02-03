@@ -46,7 +46,6 @@ body {
   background: white;
   border: 1px solid var(--color-ink);
   padding: 0.5rem;
-  width: 100%;
 }
 
 .tech-input:focus {
@@ -186,5 +185,7 @@ details.tech-panel[open] > summary {
 
 .tech-remove:hover {
   color: var(--color-ink);
-  text-decoration: line-through;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--color-grid);
 }
