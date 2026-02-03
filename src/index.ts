@@ -106,9 +106,6 @@ const boxHeightInput = document.getElementById(
 ) as HTMLInputElement;
 const addBoxBtn = document.getElementById("add-box-btn") as HTMLButtonElement;
 const boxListContainer = document.getElementById("box-list") as HTMLElement;
-const calculateBtn = document.getElementById(
-  "calculate-btn"
-) as HTMLButtonElement;
 const resultsSection = document.getElementById("results") as HTMLElement;
 const panelListContainer = document.getElementById("panel-list") as HTMLElement;
 
@@ -164,6 +161,7 @@ function addBox(): void {
   boxDepthInput.value = "";
 
   updateBoxList();
+  recalculate();
 }
 
 // Event handlers
@@ -179,24 +177,19 @@ addBoxBtn.addEventListener("click", addBox);
   });
 });
 
-// Board size change listeners (to update oversized warnings)
-boardWidthInput.addEventListener("change", updateBoxList);
-boardHeightInput.addEventListener("change", updateBoxList);
-thicknessInput.addEventListener("change", updateBoxList);
-
-calculateBtn.addEventListener("click", () => {
+// Recalculate panels and board layout
+function recalculate(): void {
   if (boxes.length === 0) {
-    alert("Please add at least one box.");
+    resultsSection.classList.add("hidden");
+    boardLayoutSection.classList.add("hidden");
     return;
   }
 
   const thickness = parseFloat(thicknessInput.value);
   if (isNaN(thickness) || thickness <= 0) {
-    alert("Please enter a valid thickness.");
     return;
   }
 
-  // Get board config
   const boardConfig: BoardConfig = {
     width: parseFloat(boardWidthInput.value) || DEFAULT_BOARD_CONFIG.width,
     height: parseFloat(boardHeightInput.value) || DEFAULT_BOARD_CONFIG.height,
@@ -204,14 +197,7 @@ calculateBtn.addEventListener("click", () => {
     kerf: parseFloat(boardKerfInput.value) ?? DEFAULT_BOARD_CONFIG.kerf,
   };
 
-  // Validate board config
-  if (boardConfig.width <= 0 || boardConfig.height <= 0) {
-    alert("Board dimensions must be positive numbers.");
-    return;
-  }
-
-  if (boardConfig.kerf < 0) {
-    alert("Kerf must be non-negative.");
+  if (boardConfig.width <= 0 || boardConfig.height <= 0 || boardConfig.kerf < 0) {
     return;
   }
 
@@ -219,12 +205,17 @@ calculateBtn.addEventListener("click", () => {
   renderPanelList(panels, thickness, panelListContainer);
   resultsSection.classList.remove("hidden");
 
-  // Pack panels and render board layout
   const packingResult = packPanels(panels, boardConfig);
   renderBoardWarnings(packingResult, boardWarningsContainer);
   renderBoardVisualization(packingResult, boardVisualizationContainer);
   boardLayoutSection.classList.remove("hidden");
-});
+}
+
+// Settings change listeners
+boardWidthInput.addEventListener("input", () => { updateBoxList(); recalculate(); });
+boardHeightInput.addEventListener("input", () => { updateBoxList(); recalculate(); });
+boardKerfInput.addEventListener("input", recalculate);
+thicknessInput.addEventListener("input", () => { updateBoxList(); recalculate(); });
 
 function updateBoxList(): void {
   const oversizedBoxes = getOversizedBoxes();
@@ -235,21 +226,20 @@ function updateBoxList(): void {
       boxes.splice(index, 1);
       saveBoxes();
       updateBoxList();
-      resultsSection.classList.add("hidden");
-      boardLayoutSection.classList.add("hidden");
+      recalculate();
     },
     (index, quantity) => {
       boxes[index].quantity = quantity;
       saveBoxes();
-      resultsSection.classList.add("hidden");
-      boardLayoutSection.classList.add("hidden");
+      recalculate();
     },
     oversizedBoxes
   );
 }
 
-// Render any boxes loaded from storage
+// Render any boxes loaded from storage and calculate
 updateBoxList();
+recalculate();
 
 // Register service worker (production only)
 if ("serviceWorker" in navigator && process.env.NODE_ENV === "production") {
