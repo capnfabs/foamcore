@@ -10,35 +10,35 @@ export function renderBoxList(
 ): void {
   if (boxes.length === 0) {
     container.innerHTML =
-      '<p class="text-gray-500 text-sm">Add a box to start.</p>';
+      '<p class="text-sm opacity-60">Add a box to start.</p>';
     return;
   }
 
   container.innerHTML = boxes
     .map(
       (box, index) => `
-      <div class="flex items-center justify-between bg-gray-50 p-3 rounded-md">
+      <div class="tech-box-item flex items-center justify-between">
         <div class="flex items-center gap-2">
-          ${oversizedBoxes?.has(index) ? '<span title="Panels exceed board size" class="text-amber-500">&#9888;</span>' : ''}
+          ${oversizedBoxes?.has(index) ? '<span title="Panels exceed board size">&#9888;</span>' : ''}
           <span class="font-medium">${escapeHtml(box.name)}</span>
-          <span class="text-gray-500 text-sm">
-            ${box.width} × ${box.depth} × ${box.height} mm
+          <span class="opacity-60">
+            ${box.width} × ${box.depth} × ${box.height}
           </span>
         </div>
         <div class="flex items-center gap-3">
-          <label class="flex items-center gap-1 text-sm text-gray-600">
+          <label class="flex items-center gap-1 text-xs uppercase">
             Qty:
             <input
               type="number"
               data-index="${index}"
               value="${box.quantity}"
               min="1"
-              class="quantity-input w-14 px-2 py-1 border border-gray-300 rounded text-center"
+              class="quantity-input tech-input w-14 text-center"
             />
           </label>
           <button
             data-index="${index}"
-            class="remove-box-btn text-red-600 hover:text-red-800 text-sm font-medium"
+            class="remove-box-btn tech-remove"
           >
             Remove
           </button>
@@ -89,23 +89,23 @@ export function renderPanelList(
   for (const [boxName, boxPanels] of grouped) {
     html += `
       <div class="mb-4">
-        <h3 class="font-semibold text-gray-800 mb-2">${escapeHtml(boxName)}</h3>
+        <h3 class="text-xs uppercase tracking-wide font-semibold mb-2 border-b border-current pb-1">${escapeHtml(boxName)}</h3>
         <table class="w-full text-sm">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="text-left p-2">Panel</th>
-              <th class="text-left p-2">Size (mm)</th>
-              <th class="text-left p-2">Qty</th>
+          <thead>
+            <tr class="border-b border-current">
+              <th class="text-left py-1 text-xs uppercase tracking-wide font-normal">Panel</th>
+              <th class="text-left py-1 text-xs uppercase tracking-wide font-normal">Size (mm)</th>
+              <th class="text-left py-1 text-xs uppercase tracking-wide font-normal">Qty</th>
             </tr>
           </thead>
           <tbody>
             ${boxPanels
               .map(
                 (panel) => `
-              <tr class="border-b border-gray-100">
-                <td class="p-2">${escapeHtml(panel.label)}</td>
-                <td class="p-2">${panel.width} × ${panel.height}</td>
-                <td class="p-2">${panel.quantity}</td>
+              <tr class="border-b border-dashed border-gray-300">
+                <td class="py-1">${escapeHtml(panel.label)}</td>
+                <td class="py-1">${panel.width} × ${panel.height}</td>
+                <td class="py-1">${panel.quantity}</td>
               </tr>
             `
               )
@@ -125,29 +125,34 @@ function escapeHtml(text: string): string {
   return div.innerHTML;
 }
 
-// Color palette for panels
+// Colors and hatch patterns for technical drawing look
 const PANEL_COLORS = [
-  "#93c5fd", // blue-300
-  "#86efac", // green-300
-  "#fcd34d", // amber-300
-  "#f9a8d4", // pink-300
-  "#c4b5fd", // violet-300
-  "#fdba74", // orange-300
-  "#67e8f9", // cyan-300
-  "#fca5a5", // red-300
+  "#2563eb", // blue
+  "#16a34a", // green
+  "#dc2626", // red
+  "#9333ea", // purple
+  "#ea580c", // orange
+  "#0891b2", // cyan
+  "#c026d3", // fuchsia
+  "#854d0e", // amber
 ];
 
-function getPanelColor(index: number): string {
-  return PANEL_COLORS[index % PANEL_COLORS.length];
+const HATCH_ANGLES = [45, -45, 0, 90, 30, -30, 60, -60];
+
+function getPanelStyle(index: number): { color: string; angle: number } {
+  return {
+    color: PANEL_COLORS[index % PANEL_COLORS.length],
+    angle: HATCH_ANGLES[index % HATCH_ANGLES.length],
+  };
 }
 
 export function renderBoardInfo(config: BoardConfig, container: HTMLElement): void {
   const usable = getUsableArea(config);
 
   container.innerHTML = `
-    <div class="bg-blue-50 border border-blue-200 rounded-md p-3 text-sm">
-      <p class="font-medium text-blue-800 mb-2">Board Configuration</p>
-      <ul class="text-blue-700 space-y-1">
+    <div class="border border-current p-3 text-sm">
+      <p class="text-xs uppercase tracking-wide font-semibold mb-2">Board Configuration</p>
+      <ul class="space-y-1 text-sm">
         <li>Board size: ${config.width} × ${config.height} mm</li>
         <li>Edge margin: ${config.margin}mm on each edge</li>
         <li>Usable area: ${usable.width} × ${usable.height} mm</li>
@@ -168,9 +173,9 @@ export function renderBoardWarnings(result: PackingResult, container: HTMLElemen
   ).join("");
 
   container.innerHTML = `
-    <div class="bg-red-50 border border-red-200 rounded-md p-3 text-sm">
-      <p class="font-medium text-red-800 mb-2">Warnings</p>
-      <ul class="text-red-700 space-y-1 list-disc list-inside">
+    <div class="border-2 border-current p-3 text-sm mb-4">
+      <p class="text-xs uppercase tracking-wide font-semibold mb-2">⚠ Warnings</p>
+      <ul class="space-y-1 list-disc list-inside">
         ${warnings}
       </ul>
     </div>
@@ -179,7 +184,7 @@ export function renderBoardWarnings(result: PackingResult, container: HTMLElemen
 
 export function renderBoardVisualization(result: PackingResult, container: HTMLElement): void {
   if (result.boards.length === 0) {
-    container.innerHTML = '<p class="text-gray-500 text-sm">No panels to display.</p>';
+    container.innerHTML = '<p class="text-sm opacity-60">No panels to display.</p>';
     return;
   }
 
@@ -191,42 +196,60 @@ export function renderBoardVisualization(result: PackingResult, container: HTMLE
   const svgWidth = config.width * scale;
   const svgHeight = config.height * scale;
 
-  // Create a color map for unique panel labels
-  const labelColorMap = new Map<string, string>();
-  let colorIndex = 0;
+  // Create a pattern index map for unique panel labels
+  const labelPatternMap = new Map<string, number>();
+  let patternIndex = 0;
   for (const board of result.boards) {
     for (const placement of board.placements) {
       const key = `${placement.panel.boxName}:${placement.panel.label}`;
-      if (!labelColorMap.has(key)) {
-        labelColorMap.set(key, getPanelColor(colorIndex++));
+      if (!labelPatternMap.has(key)) {
+        labelPatternMap.set(key, patternIndex++);
       }
     }
   }
 
+  // Generate hatch pattern definitions
+  const patternDefs = Array.from(labelPatternMap.entries()).map(([, idx]) => {
+    const style = getPanelStyle(idx);
+    const patternId = `hatch-${idx}`;
+    const spacing = 10;
+    return `
+      <pattern id="${patternId}" patternUnits="userSpaceOnUse" width="${spacing}" height="${spacing}" patternTransform="rotate(${style.angle})">
+        <line x1="0" y1="0" x2="0" y2="${spacing}" stroke="${style.color}" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+    `;
+  }).join("");
+
   // Summary
   let html = `
-    <div class="bg-gray-50 rounded-md p-3 mb-4 text-sm">
-      <p class="font-medium text-gray-700">
-        Total boards needed: <span class="text-blue-600">${result.boards.length}</span>
-      </p>
+    <div class="border border-current p-3 mb-4 text-sm">
+      <span class="text-xs uppercase tracking-wide">Total boards needed:</span>
+      <span class="font-bold ml-2">${result.boards.length}</span>
     </div>
   `;
 
   for (const board of result.boards) {
     html += `
-      <div class="border border-gray-200 rounded-md p-3">
-        <div class="mb-2">
-          <span class="font-medium text-gray-700">Board ${board.id}</span>
+      <div class="border border-current p-3 mb-4">
+        <div class="mb-2 text-xs uppercase tracking-wide">
+          Board ${board.id}
         </div>
         <svg
           width="${svgWidth}"
           height="${svgHeight}"
           viewBox="0 0 ${config.width} ${config.height}"
-          class="border border-gray-300 bg-white"
+          class="border border-current bg-white"
         >
+          <defs>
+            ${patternDefs}
+          </defs>
+          <!-- Board outline -->
+          <rect x="0" y="0" width="${config.width}" height="${config.height}" fill="none" stroke="#1a1a1a" stroke-width="2" />
+          <!-- Margin area (dashed) -->
+          <rect x="${config.margin}" y="${config.margin}" width="${config.width - 2 * config.margin}" height="${config.height - 2 * config.margin}" fill="none" stroke="#1a1a1a" stroke-width="0.5" stroke-dasharray="4 2" />
           <!-- Placed panels -->
           ${board.placements
-            .map((placement) => renderPlacedPanel(placement, config.margin, labelColorMap))
+            .map((placement) => renderPlacedPanel(placement, config.margin, labelPatternMap))
             .join("")}
         </svg>
       </div>
@@ -236,37 +259,90 @@ export function renderBoardVisualization(result: PackingResult, container: HTMLE
   container.innerHTML = html;
 }
 
+function wrapText(text: string, maxCharsPerLine: number): string[] {
+  if (text.length <= maxCharsPerLine) {
+    return [text];
+  }
+
+  const lines: string[] = [];
+  let remaining = text;
+
+  while (remaining.length > 0) {
+    if (remaining.length <= maxCharsPerLine) {
+      lines.push(remaining);
+      break;
+    }
+
+    // Try to break at a sensible point (space, dot, hyphen)
+    let breakPoint = maxCharsPerLine;
+    const searchArea = remaining.slice(0, maxCharsPerLine);
+    const lastSpace = searchArea.lastIndexOf(' ');
+    const lastDot = searchArea.lastIndexOf('.');
+    const lastHyphen = searchArea.lastIndexOf('-');
+
+    const bestBreak = Math.max(lastSpace, lastDot + 1, lastHyphen + 1);
+    if (bestBreak > maxCharsPerLine * 0.4) {
+      breakPoint = bestBreak;
+    }
+
+    lines.push(remaining.slice(0, breakPoint).trim());
+    remaining = remaining.slice(breakPoint).trim();
+  }
+
+  return lines;
+}
+
 function renderPlacedPanel(
   placement: PlacedPanel,
   margin: number,
-  colorMap: Map<string, string>
+  patternMap: Map<string, number>
 ): string {
   const { panel, x, y, rotated, instanceIndex } = placement;
   const w = rotated ? panel.height : panel.width;
   const h = rotated ? panel.width : panel.height;
 
   const key = `${panel.boxName}:${panel.label}`;
-  const color = colorMap.get(key) || "#e5e7eb";
+  const patternIdx = patternMap.get(key) ?? 0;
+  const patternId = `hatch-${patternIdx}`;
+  const style = getPanelStyle(patternIdx);
 
   // Calculate position including margin
   const px = margin + x;
   const py = margin + y;
 
   // Font size scaled for readability
-  const fontSize = Math.min(12, Math.max(8, Math.min(w, h) * 0.15));
+  const fontSize = Math.min(11, Math.max(7, Math.min(w, h) * 0.12));
   const dimFontSize = Math.max(6, fontSize * 0.85);
+  const lineHeight = fontSize * 1.2;
 
   // Create label: "BoxName.Side" format
   const baseLabelText = `${panel.boxName}.${panel.label}`;
   const labelText =
     panel.quantity > 1 ? `${baseLabelText} (${instanceIndex + 1})` : baseLabelText;
 
-  // Truncate label if too long
-  const maxChars = Math.floor(w / (fontSize * 0.6));
-  const displayLabel = labelText.length > maxChars ? labelText.slice(0, maxChars - 1) + "…" : labelText;
+  // Wrap text to fit panel width (with padding)
+  const padding = 6;
+  const maxCharsPerLine = Math.floor((w - padding * 2) / (fontSize * 0.55));
+  const lines = wrapText(labelText, maxCharsPerLine);
+
+  // Limit lines to fit in panel height (with padding)
+  const maxLines = Math.floor((h - padding * 2 - dimFontSize) / lineHeight);
+  const displayLines = lines.slice(0, Math.max(1, maxLines));
+  if (displayLines.length < lines.length) {
+    const lastLine = displayLines[displayLines.length - 1];
+    displayLines[displayLines.length - 1] = lastLine.slice(0, -1) + "…";
+  }
 
   // Dimensions text (always show original panel dimensions, not rotated)
   const dimText = `${panel.width}×${panel.height}`;
+
+  // Calculate vertical centering for text block
+  const totalTextHeight = displayLines.length * lineHeight + dimFontSize;
+  const textStartY = py + (h - totalTextHeight) / 2 + fontSize * 0.8;
+
+  const labelTspans = displayLines.map((line, i) =>
+    `<tspan x="${px + w / 2}" dy="${i === 0 ? 0 : lineHeight}">${escapeHtml(line)}</tspan>`
+  ).join("");
 
   return `
     <g>
@@ -275,29 +351,33 @@ function renderPlacedPanel(
         y="${py}"
         width="${w}"
         height="${h}"
-        fill="${color}"
-        stroke="#374151"
-        stroke-width="1"
+        fill="white"
+      />
+      <rect
+        x="${px}"
+        y="${py}"
+        width="${w}"
+        height="${h}"
+        fill="url(#${patternId})"
+        stroke="${style.color}"
+        stroke-width="1.5"
       />
       <text
         x="${px + w / 2}"
-        y="${py + h / 2 - dimFontSize * 0.4}"
+        y="${textStartY}"
         text-anchor="middle"
-        dominant-baseline="middle"
         font-size="${fontSize}"
-        fill="#1f2937"
-        font-family="system-ui, sans-serif"
-      >${escapeHtml(displayLabel)}</text>
+        fill="#1a1a1a"
+        font-family="ui-monospace, monospace"
+      >${labelTspans}</text>
       <text
         x="${px + w / 2}"
-        y="${py + h / 2 + fontSize * 0.6}"
+        y="${textStartY + displayLines.length * lineHeight}"
         text-anchor="middle"
-        dominant-baseline="middle"
         font-size="${dimFontSize}"
-        fill="#4b5563"
-        font-family="system-ui, sans-serif"
+        fill="#4a4a4a"
+        font-family="ui-monospace, monospace"
       >${dimText}</text>
     </g>
   `;
 }
-

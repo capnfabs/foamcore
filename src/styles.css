@@ -1,3 +1,190 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  --color-ink: #1a1a1a;
+  --color-ink-light: #555;
+  --color-paper: #fafafa;
+  --color-grid: #e0e0e0;
+  --color-accent: #0066cc;
+}
+
+body {
+  font-family: var(--font-mono);
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Technical panel style */
+.tech-panel {
+  background: var(--color-paper);
+  border: 1px solid var(--color-ink);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tech-panel-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Technical input style */
+.tech-input {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background: white;
+  border: 1px solid var(--color-ink);
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.tech-input:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+/* Technical button style */
+.tech-btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: white;
+  border: 1px solid var(--color-ink);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.tech-btn:hover {
+  background: var(--color-ink);
+  color: white;
+}
+
+.tech-btn:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.tech-btn-primary {
+  background: var(--color-ink);
+  color: white;
+}
+
+.tech-btn-primary:hover {
+  background: white;
+  color: var(--color-ink);
+}
+
+/* Technical label */
+.tech-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-ink-light);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+/* Dialog styling */
+dialog.tech-dialog {
+  border: 2px solid var(--color-ink);
+  padding: 0;
+  background: var(--color-paper);
+  font-family: var(--font-mono);
+}
+
+dialog.tech-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+}
+
+/* Details/Summary styling */
+details.tech-panel > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+details.tech-panel > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.tech-panel > summary::before {
+  content: "[+] ";
+  font-weight: normal;
+}
+
+details.tech-panel[open] > summary::before {
+  content: "[-] ";
+}
+
+/* Collapsible sections */
+details.tech-panel {
+  background: var(--color-paper);
+  border: 1px solid var(--color-ink);
+  margin-bottom: 1rem;
+}
+
+details.tech-panel > summary {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-ink);
+  padding: 1rem;
+}
+
+details.tech-panel[open] > summary {
+  border-bottom: 1px solid var(--color-ink);
+}
+
+/* Box list item */
+.tech-box-item {
+  border: 1px dashed var(--color-grid);
+  padding: 0.5rem;
+  font-size: 0.8rem;
+}
+
+/* Add button (plus) */
+.tech-add-btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid var(--color-ink);
+  cursor: pointer;
+}
+
+.tech-add-btn:hover {
+  background: var(--color-ink);
+  color: white;
+}
+
+/* Remove link style */
+.tech-remove {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--color-ink-light);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.tech-remove:hover {
+  color: var(--color-ink);
+  text-decoration: line-through;
+}
