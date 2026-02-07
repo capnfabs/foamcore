@@ -14,16 +14,12 @@ export interface Panel {
   quantity: number;
 }
 
-export interface CalculationResult {
-  panels: Panel[];
-  thickness: number; // mm - global setting
-}
-
 export interface BoardConfig {
-  width: number;   // mm - default 700
-  height: number;  // mm - default 500
-  margin: number;  // mm - default 5
-  kerf: number;    // mm - default 1
+  width: number;     // mm - default 700
+  height: number;    // mm - default 500
+  margin: number;    // mm - default 5
+  kerf: number;      // mm - default 1
+  thickness: number; // mm - default 5
 }
 
 export interface PlacedPanel {

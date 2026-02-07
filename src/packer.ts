@@ -5,6 +5,7 @@ export const DEFAULT_BOARD_CONFIG: BoardConfig = {
   height: 500,
   margin: 5,
   kerf: 1,
+  thickness: 5,
 };
 
 interface FreeRect {

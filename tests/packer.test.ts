@@ -10,14 +10,14 @@ describe("getUsableArea", () => {
   });
 
   it("calculates usable area with custom config", () => {
-    const config: BoardConfig = { width: 1000, height: 800, margin: 10, kerf: 2 };
+    const config: BoardConfig = { width: 1000, height: 800, margin: 10, kerf: 2, thickness: 5 };
     const usable = getUsableArea(config);
     expect(usable.width).toBe(980); // 1000 - 2*10
     expect(usable.height).toBe(780); // 800 - 2*10
   });
 
   it("handles zero margin", () => {
-    const config: BoardConfig = { width: 500, height: 500, margin: 0, kerf: 1 };
+    const config: BoardConfig = { width: 500, height: 500, margin: 0, kerf: 1, thickness: 5 };
     const usable = getUsableArea(config);
     expect(usable.width).toBe(500);
     expect(usable.height).toBe(500);
@@ -165,7 +165,7 @@ describe("packPanels", () => {
   });
 
   it("uses custom board config", () => {
-    const config: BoardConfig = { width: 300, height: 200, margin: 10, kerf: 2 };
+    const config: BoardConfig = { width: 300, height: 200, margin: 10, kerf: 2, thickness: 5 };
     const panels: Panel[] = [
       { boxName: "Test", label: "Panel", width: 100, height: 100, quantity: 1 },
     ];
@@ -195,7 +195,7 @@ describe("packPanels", () => {
   });
 
   it("handles zero kerf", () => {
-    const config: BoardConfig = { width: 500, height: 500, margin: 0, kerf: 0 };
+    const config: BoardConfig = { width: 500, height: 500, margin: 0, kerf: 0, thickness: 5 };
     const panels: Panel[] = [
       { boxName: "Test", label: "Panel", width: 250, height: 250, quantity: 4 },
     ];

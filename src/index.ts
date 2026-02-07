@@ -91,18 +91,18 @@ function getCurrentBoardConfig(): BoardConfig {
     height: parseFloat(boardHeightInput.value) || DEFAULT_BOARD_CONFIG.height,
     margin: DEFAULT_BOARD_CONFIG.margin,
     kerf: parseFloat(boardKerfInput.value) ?? DEFAULT_BOARD_CONFIG.kerf,
+    thickness: parseFloat(thicknessInput.value) || DEFAULT_BOARD_CONFIG.thickness,
   };
 }
 
 function wouldCreateOversizedPanels(box: BoxSpec): boolean {
   const config = getCurrentBoardConfig();
   const usable = getUsableArea(config);
-  const thickness = parseFloat(thicknessInput.value) || 5;
 
   const panelDims = [
     { w: box.width, h: box.height },
-    { w: box.depth - 2 * thickness, h: box.height },
-    { w: box.width - 2 * thickness, h: box.depth - 2 * thickness },
+    { w: box.depth - 2 * config.thickness, h: box.height },
+    { w: box.width - 2 * config.thickness, h: box.depth - 2 * config.thickness },
   ];
 
   return panelDims.some(({ w, h }) => {
@@ -218,24 +218,14 @@ function recalculate(): void {
     return;
   }
 
-  const thickness = parseFloat(thicknessInput.value);
-  if (isNaN(thickness) || thickness <= 0) {
+  const boardConfig = getCurrentBoardConfig();
+
+  if (boardConfig.thickness <= 0 || boardConfig.width <= 0 || boardConfig.height <= 0 || boardConfig.kerf < 0) {
     return;
   }
 
-  const boardConfig: BoardConfig = {
-    width: parseFloat(boardWidthInput.value) || DEFAULT_BOARD_CONFIG.width,
-    height: parseFloat(boardHeightInput.value) || DEFAULT_BOARD_CONFIG.height,
-    margin: DEFAULT_BOARD_CONFIG.margin,
-    kerf: parseFloat(boardKerfInput.value) ?? DEFAULT_BOARD_CONFIG.kerf,
-  };
-
-  if (boardConfig.width <= 0 || boardConfig.height <= 0 || boardConfig.kerf < 0) {
-    return;
-  }
-
-  const panels = calculatePanels(boxes, thickness);
-  renderPanelList(panels, thickness, panelListContainer);
+  const panels = calculatePanels(boxes, boardConfig.thickness);
+  renderPanelList(panels, boardConfig.thickness, panelListContainer);
   resultsSection.classList.remove("hidden");
 
   const packingResult = packPanels(panels, boardConfig);
