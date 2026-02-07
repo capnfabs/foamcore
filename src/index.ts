@@ -147,7 +147,6 @@ const boardLayoutSection = document.getElementById("board-layout") as HTMLElemen
 const boardWarningsContainer = document.getElementById("board-warnings") as HTMLElement;
 const boardVisualizationContainer = document.getElementById("board-visualization") as HTMLElement;
 
-// Add box function
 function addBox(): void {
   let name = boxNameInput.value.trim();
   const width = parseFloat(boxWidthInput.value);
@@ -185,7 +184,7 @@ function addBox(): void {
   boxes.push(newBox);
   saveBoxes();
 
-  // Clear form (but keep height)
+  // Clear form (but keep height; it's super common to generate lots of boxes of the same height)
   boxNameInput.value = "";
   boxWidthInput.value = "";
   boxDepthInput.value = "";
