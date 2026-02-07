@@ -79,6 +79,26 @@ describe("end-to-end SVG generation", () => {
     });
   });
 
+  it("handles two boxes with the same name", () => {
+    const boxes: BoxSpec[] = [
+      { name: "Box A", width: 100, depth: 80, height: 50, quantity: 1 },
+      { name: "Box A", width: 100, depth: 80, height: 50, quantity: 1 },
+    ];
+    const config: BoardConfig = {
+      width: 700,
+      height: 500,
+      margin: 5,
+      kerf: 1,
+      thickness: 5,
+    };
+
+    const panels = calculatePanels(boxes, config.thickness);
+    const packingResult = packPanels(panels, config);
+    const svgs = generateAllBoardsSvg(packingResult, escapeForTest);
+
+    expect(svgs.length).toBeGreaterThan(0);
+  });
+
   it("uses the escape function for box names with special characters", () => {
     const boxes: BoxSpec[] = [
       { name: "<script>alert('xss')</script>", width: 100, depth: 80, height: 50, quantity: 1 },

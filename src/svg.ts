@@ -1,4 +1,5 @@
 import { PackingResult, PlacedPanel } from "./types";
+import { wrapText } from "./text";
 
 export type EscapeFn = (text: string) => string;
 
@@ -21,38 +22,6 @@ function getPanelStyle(index: number): { color: string; angle: number } {
     color: PANEL_COLORS[index % PANEL_COLORS.length],
     angle: HATCH_ANGLES[index % HATCH_ANGLES.length],
   };
-}
-
-function wrapText(text: string, maxCharsPerLine: number): string[] {
-  if (text.length <= maxCharsPerLine) {
-    return [text];
-  }
-
-  const lines: string[] = [];
-  let remaining = text;
-
-  while (remaining.length > 0) {
-    if (remaining.length <= maxCharsPerLine) {
-      lines.push(remaining);
-      break;
-    }
-
-    let breakPoint = maxCharsPerLine;
-    const searchArea = remaining.slice(0, maxCharsPerLine);
-    const lastSpace = searchArea.lastIndexOf(" ");
-    const lastDot = searchArea.lastIndexOf(".");
-    const lastHyphen = searchArea.lastIndexOf("-");
-
-    const bestBreak = Math.max(lastSpace, lastDot + 1, lastHyphen + 1);
-    if (bestBreak > maxCharsPerLine * 0.4) {
-      breakPoint = bestBreak;
-    }
-
-    lines.push(remaining.slice(0, breakPoint).trim());
-    remaining = remaining.slice(breakPoint).trim();
-  }
-
-  return lines;
 }
 
 function renderPlacedPanelSvg(
