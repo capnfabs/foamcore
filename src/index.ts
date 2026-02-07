@@ -7,6 +7,7 @@ import {
   renderBoardWarnings,
   renderBoardVisualization,
 } from "./ui";
+import { generateBoxName } from "./naming";
 
 // Storage
 const BOXES_STORAGE_KEY = "foamcore-boxes";
@@ -35,11 +36,12 @@ function loadBoxes(): BoxSpec[] {
   if (!stored) return [];
   try {
     const parsed = JSON.parse(stored);
-    // Migrate old data without quantity field
-    return parsed.map((box: BoxSpec) => ({
-      ...box,
-      quantity: box.quantity ?? 1,
-    }));
+    // bare minimum check that it's an array
+    if (Array.isArray(parsed)) {
+      return parsed as BoxSpec[];
+    } else {
+      return [];
+    }
   } catch {
     return [];
   }
@@ -64,17 +66,6 @@ function loadSettings(): Settings {
   } catch {
     return DEFAULT_SETTINGS;
   }
-}
-
-// Auto-name generation
-function generateBoxName(index: number): string {
-  let name = "";
-  let n = index;
-  do {
-    name = String.fromCharCode(65 + (n % 26)) + name;
-    n = Math.floor(n / 26) - 1;
-  } while (n >= 0);
-  return `Box ${name}`;
 }
 
 function getNextAutoName(): string {
