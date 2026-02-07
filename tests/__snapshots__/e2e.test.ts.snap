@@ -1,0 +1,315 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`end-to-end SVG generation > generates consistent SVG for a single box 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="700" height="500" viewBox="0 0 700 500">
+  <defs>
+    <pattern id="hatch-0" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#2563eb" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-1" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(-45)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#16a34a" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-2" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(0)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#dc2626" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+  </defs>
+  <rect x="0" y="0" width="700" height="500" fill="none" stroke="#1a1a1a" stroke-width="2" />
+  <rect x="5" y="5" width="690" height="490" fill="none" stroke="#1a1a1a" stroke-width="0.5" stroke-dasharray="4 2" />
+  
+    <g>
+      <rect x="5" y="5" width="90" height="70" fill="white" />
+      <rect x="5" y="5" width="90" height="70" fill="url(#hatch-0)" stroke="#2563eb" stroke-width="1.5" />
+      <text x="50" y="38.11" text-anchor="middle" font-size="8.4" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="50" dy="0">Small Box.Base</tspan></text>
+      <text x="50" y="48.19" text-anchor="middle" font-size="7.14" fill="#4a4a4a" font-family="ui-monospace, monospace">90×70</text>
+    </g>
+  
+    <g>
+      <rect x="5" y="76" width="50" height="100" fill="white" />
+      <rect x="5" y="76" width="50" height="100" fill="url(#hatch-1)" stroke="#16a34a" stroke-width="1.5" />
+      <text x="30" y="116" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="30" dy="0">Small</tspan><tspan x="30" dy="8.4">Box.Long</tspan><tspan x="30" dy="8.4">(1)</tspan></text>
+      <text x="30" y="141.2" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">100×50</text>
+    </g>
+  
+    <g>
+      <rect x="5" y="177" width="50" height="100" fill="white" />
+      <rect x="5" y="177" width="50" height="100" fill="url(#hatch-1)" stroke="#16a34a" stroke-width="1.5" />
+      <text x="30" y="217" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="30" dy="0">Small</tspan><tspan x="30" dy="8.4">Box.Long</tspan><tspan x="30" dy="8.4">(2)</tspan></text>
+      <text x="30" y="242.2" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">100×50</text>
+    </g>
+  
+    <g>
+      <rect x="5" y="278" width="50" height="70" fill="white" />
+      <rect x="5" y="278" width="50" height="70" fill="url(#hatch-2)" stroke="#dc2626" stroke-width="1.5" />
+      <text x="30" y="303" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="30" dy="0">Small</tspan><tspan x="30" dy="8.4">Box.</tspan><tspan x="30" dy="8.4">Short (1)</tspan></text>
+      <text x="30" y="328.2" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">70×50</text>
+    </g>
+  
+    <g>
+      <rect x="5" y="349" width="50" height="70" fill="white" />
+      <rect x="5" y="349" width="50" height="70" fill="url(#hatch-2)" stroke="#dc2626" stroke-width="1.5" />
+      <text x="30" y="374" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="30" dy="0">Small</tspan><tspan x="30" dy="8.4">Box.</tspan><tspan x="30" dy="8.4">Short (2)</tspan></text>
+      <text x="30" y="399.2" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">70×50</text>
+    </g>
+  
+</svg>"
+`;
+
+exports[`end-to-end SVG generation > generates consistent SVG for multiple boxes > board-1 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="700" height="500" viewBox="0 0 700 500">
+  <defs>
+    <pattern id="hatch-0" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#2563eb" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-1" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(-45)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#16a34a" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-2" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(0)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#dc2626" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-3" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(90)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#9333ea" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-4" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(30)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#ea580c" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-5" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(-30)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#0891b2" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+  </defs>
+  <rect x="0" y="0" width="700" height="500" fill="none" stroke="#1a1a1a" stroke-width="2" />
+  <rect x="5" y="5" width="690" height="490" fill="none" stroke="#1a1a1a" stroke-width="0.5" stroke-dasharray="4 2" />
+  
+    <g>
+      <rect x="5" y="5" width="140" height="90" fill="white" />
+      <rect x="5" y="5" width="140" height="90" fill="url(#hatch-0)" stroke="#2563eb" stroke-width="1.5" />
+      <text x="75" y="47.57" text-anchor="middle" font-size="10.799999999999999" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="75" dy="0">Box A.Base</tspan></text>
+      <text x="75" y="60.53" text-anchor="middle" font-size="9.18" fill="#4a4a4a" font-family="ui-monospace, monospace">140×90</text>
+    </g>
+  
+    <g>
+      <rect x="5" y="96" width="60" height="150" fill="white" />
+      <rect x="5" y="96" width="60" height="150" fill="url(#hatch-1)" stroke="#16a34a" stroke-width="1.5" />
+      <text x="35" y="165.06" text-anchor="middle" font-size="7.199999999999999" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="35" dy="0">Box A.Long</tspan><tspan x="35" dy="8.639999999999999">(1)</tspan></text>
+      <text x="35" y="182.34" text-anchor="middle" font-size="6.119999999999999" fill="#4a4a4a" font-family="ui-monospace, monospace">150×60</text>
+    </g>
+  
+    <g>
+      <rect x="5" y="247" width="60" height="150" fill="white" />
+      <rect x="5" y="247" width="60" height="150" fill="url(#hatch-1)" stroke="#16a34a" stroke-width="1.5" />
+      <text x="35" y="316.06" text-anchor="middle" font-size="7.199999999999999" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="35" dy="0">Box A.Long</tspan><tspan x="35" dy="8.639999999999999">(2)</tspan></text>
+      <text x="35" y="333.34" text-anchor="middle" font-size="6.119999999999999" fill="#4a4a4a" font-family="ui-monospace, monospace">150×60</text>
+    </g>
+  
+    <g>
+      <rect x="5" y="398" width="60" height="90" fill="white" />
+      <rect x="5" y="398" width="60" height="90" fill="url(#hatch-2)" stroke="#dc2626" stroke-width="1.5" />
+      <text x="35" y="437.06" text-anchor="middle" font-size="7.199999999999999" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="35" dy="0">Box A.Short</tspan><tspan x="35" dy="8.639999999999999">(1)</tspan></text>
+      <text x="35" y="454.34" text-anchor="middle" font-size="6.119999999999999" fill="#4a4a4a" font-family="ui-monospace, monospace">90×60</text>
+    </g>
+  
+    <g>
+      <rect x="66" y="96" width="60" height="90" fill="white" />
+      <rect x="66" y="96" width="60" height="90" fill="url(#hatch-2)" stroke="#dc2626" stroke-width="1.5" />
+      <text x="96" y="135.06" text-anchor="middle" font-size="7.199999999999999" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="96" dy="0">Box A.Short</tspan><tspan x="96" dy="8.639999999999999">(2)</tspan></text>
+      <text x="96" y="152.34" text-anchor="middle" font-size="6.119999999999999" fill="#4a4a4a" font-family="ui-monospace, monospace">90×60</text>
+    </g>
+  
+    <g>
+      <rect x="146" y="5" width="70" height="70" fill="white" />
+      <rect x="146" y="5" width="70" height="70" fill="url(#hatch-3)" stroke="#9333ea" stroke-width="1.5" />
+      <text x="181" y="33.07" text-anchor="middle" font-size="8.4" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="181" dy="0">Box B.Base</tspan><tspan x="181" dy="10.08">(1)</tspan></text>
+      <text x="181" y="53.230000000000004" text-anchor="middle" font-size="7.14" fill="#4a4a4a" font-family="ui-monospace, monospace">70×70</text>
+    </g>
+  
+    <g>
+      <rect x="146" y="76" width="70" height="70" fill="white" />
+      <rect x="146" y="76" width="70" height="70" fill="url(#hatch-3)" stroke="#9333ea" stroke-width="1.5" />
+      <text x="181" y="104.07" text-anchor="middle" font-size="8.4" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="181" dy="0">Box B.Base</tspan><tspan x="181" dy="10.08">(2)</tspan></text>
+      <text x="181" y="124.22999999999999" text-anchor="middle" font-size="7.14" fill="#4a4a4a" font-family="ui-monospace, monospace">70×70</text>
+    </g>
+  
+    <g>
+      <rect x="66" y="187" width="40" height="80" fill="white" />
+      <rect x="66" y="187" width="40" height="80" fill="url(#hatch-4)" stroke="#ea580c" stroke-width="1.5" />
+      <text x="86" y="217" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="86" dy="0">Box B.</tspan><tspan x="86" dy="8.4">Long</tspan><tspan x="86" dy="8.4">(1)</tspan></text>
+      <text x="86" y="242.2" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">80×40</text>
+    </g>
+  
+    <g>
+      <rect x="66" y="268" width="40" height="80" fill="white" />
+      <rect x="66" y="268" width="40" height="80" fill="url(#hatch-4)" stroke="#ea580c" stroke-width="1.5" />
+      <text x="86" y="298" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="86" dy="0">Box B.</tspan><tspan x="86" dy="8.4">Long</tspan><tspan x="86" dy="8.4">(2)</tspan></text>
+      <text x="86" y="323.2" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">80×40</text>
+    </g>
+  
+    <g>
+      <rect x="66" y="349" width="40" height="80" fill="white" />
+      <rect x="66" y="349" width="40" height="80" fill="url(#hatch-4)" stroke="#ea580c" stroke-width="1.5" />
+      <text x="86" y="379" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="86" dy="0">Box B.</tspan><tspan x="86" dy="8.4">Long</tspan><tspan x="86" dy="8.4">(3)</tspan></text>
+      <text x="86" y="404.2" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">80×40</text>
+    </g>
+  
+    <g>
+      <rect x="146" y="147" width="40" height="80" fill="white" />
+      <rect x="146" y="147" width="40" height="80" fill="url(#hatch-4)" stroke="#ea580c" stroke-width="1.5" />
+      <text x="166" y="177" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="166" dy="0">Box B.</tspan><tspan x="166" dy="8.4">Long</tspan><tspan x="166" dy="8.4">(4)</tspan></text>
+      <text x="166" y="202.2" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">80×40</text>
+    </g>
+  
+    <g>
+      <rect x="146" y="228" width="40" height="70" fill="white" />
+      <rect x="146" y="228" width="40" height="70" fill="url(#hatch-5)" stroke="#0891b2" stroke-width="1.5" />
+      <text x="166" y="253" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="166" dy="0">Box B.</tspan><tspan x="166" dy="8.4">Short</tspan><tspan x="166" dy="8.4">(1)</tspan></text>
+      <text x="166" y="278.2" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">70×40</text>
+    </g>
+  
+    <g>
+      <rect x="146" y="299" width="40" height="70" fill="white" />
+      <rect x="146" y="299" width="40" height="70" fill="url(#hatch-5)" stroke="#0891b2" stroke-width="1.5" />
+      <text x="166" y="324" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="166" dy="0">Box B.</tspan><tspan x="166" dy="8.4">Short</tspan><tspan x="166" dy="8.4">(2)</tspan></text>
+      <text x="166" y="349.2" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">70×40</text>
+    </g>
+  
+    <g>
+      <rect x="146" y="370" width="40" height="70" fill="white" />
+      <rect x="146" y="370" width="40" height="70" fill="url(#hatch-5)" stroke="#0891b2" stroke-width="1.5" />
+      <text x="166" y="395" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="166" dy="0">Box B.</tspan><tspan x="166" dy="8.4">Short</tspan><tspan x="166" dy="8.4">(3)</tspan></text>
+      <text x="166" y="420.2" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">70×40</text>
+    </g>
+  
+    <g>
+      <rect x="217" y="5" width="70" height="40" fill="white" />
+      <rect x="217" y="5" width="70" height="40" fill="url(#hatch-5)" stroke="#0891b2" stroke-width="1.5" />
+      <text x="252" y="23.400000000000002" text-anchor="middle" font-size="7" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="252" dy="0">Box B.Short (4)</tspan></text>
+      <text x="252" y="31.800000000000004" text-anchor="middle" font-size="6" fill="#4a4a4a" font-family="ui-monospace, monospace">70×40</text>
+    </g>
+  
+</svg>"
+`;
+
+exports[`end-to-end SVG generation > generates consistent SVG requiring multiple boards > board-1 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="700" height="500" viewBox="0 0 700 500">
+  <defs>
+    <pattern id="hatch-0" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#2563eb" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-1" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(-45)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#16a34a" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-2" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(0)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#dc2626" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+  </defs>
+  <rect x="0" y="0" width="700" height="500" fill="none" stroke="#1a1a1a" stroke-width="2" />
+  <rect x="5" y="5" width="690" height="490" fill="none" stroke="#1a1a1a" stroke-width="0.5" stroke-dasharray="4 2" />
+  
+    <g>
+      <rect x="5" y="5" width="290" height="240" fill="white" />
+      <rect x="5" y="5" width="290" height="240" fill="url(#hatch-0)" stroke="#2563eb" stroke-width="1.5" />
+      <text x="150" y="122.52499999999999" text-anchor="middle" font-size="11" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="150" dy="0">Large Box.Base (1)</tspan></text>
+      <text x="150" y="135.725" text-anchor="middle" font-size="9.35" fill="#4a4a4a" font-family="ui-monospace, monospace">290×240</text>
+    </g>
+  
+    <g>
+      <rect x="5" y="246" width="290" height="240" fill="white" />
+      <rect x="5" y="246" width="290" height="240" fill="url(#hatch-0)" stroke="#2563eb" stroke-width="1.5" />
+      <text x="150" y="363.52500000000003" text-anchor="middle" font-size="11" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="150" dy="0">Large Box.Base (2)</tspan></text>
+      <text x="150" y="376.725" text-anchor="middle" font-size="9.35" fill="#4a4a4a" font-family="ui-monospace, monospace">290×240</text>
+    </g>
+  
+    <g>
+      <rect x="296" y="5" width="300" height="200" fill="white" />
+      <rect x="296" y="5" width="300" height="200" fill="url(#hatch-1)" stroke="#16a34a" stroke-width="1.5" />
+      <text x="446" y="102.52499999999999" text-anchor="middle" font-size="11" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="446" dy="0">Large Box.Long (1)</tspan></text>
+      <text x="446" y="115.725" text-anchor="middle" font-size="9.35" fill="#4a4a4a" font-family="ui-monospace, monospace">300×200</text>
+    </g>
+  
+    <g>
+      <rect x="296" y="206" width="300" height="200" fill="white" />
+      <rect x="296" y="206" width="300" height="200" fill="url(#hatch-1)" stroke="#16a34a" stroke-width="1.5" />
+      <text x="446" y="303.52500000000003" text-anchor="middle" font-size="11" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="446" dy="0">Large Box.Long (2)</tspan></text>
+      <text x="446" y="316.725" text-anchor="middle" font-size="9.35" fill="#4a4a4a" font-family="ui-monospace, monospace">300×200</text>
+    </g>
+  
+</svg>"
+`;
+
+exports[`end-to-end SVG generation > generates consistent SVG requiring multiple boards > board-2 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="700" height="500" viewBox="0 0 700 500">
+  <defs>
+    <pattern id="hatch-0" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#2563eb" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-1" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(-45)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#16a34a" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-2" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(0)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#dc2626" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+  </defs>
+  <rect x="0" y="0" width="700" height="500" fill="none" stroke="#1a1a1a" stroke-width="2" />
+  <rect x="5" y="5" width="690" height="490" fill="none" stroke="#1a1a1a" stroke-width="0.5" stroke-dasharray="4 2" />
+  
+    <g>
+      <rect x="5" y="5" width="300" height="200" fill="white" />
+      <rect x="5" y="5" width="300" height="200" fill="url(#hatch-1)" stroke="#16a34a" stroke-width="1.5" />
+      <text x="155" y="102.52499999999999" text-anchor="middle" font-size="11" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="155" dy="0">Large Box.Long (3)</tspan></text>
+      <text x="155" y="115.725" text-anchor="middle" font-size="9.35" fill="#4a4a4a" font-family="ui-monospace, monospace">300×200</text>
+    </g>
+  
+    <g>
+      <rect x="5" y="206" width="300" height="200" fill="white" />
+      <rect x="5" y="206" width="300" height="200" fill="url(#hatch-1)" stroke="#16a34a" stroke-width="1.5" />
+      <text x="155" y="303.52500000000003" text-anchor="middle" font-size="11" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="155" dy="0">Large Box.Long (4)</tspan></text>
+      <text x="155" y="316.725" text-anchor="middle" font-size="9.35" fill="#4a4a4a" font-family="ui-monospace, monospace">300×200</text>
+    </g>
+  
+    <g>
+      <rect x="306" y="5" width="240" height="200" fill="white" />
+      <rect x="306" y="5" width="240" height="200" fill="url(#hatch-2)" stroke="#dc2626" stroke-width="1.5" />
+      <text x="426" y="102.52499999999999" text-anchor="middle" font-size="11" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="426" dy="0">Large Box.Short (1)</tspan></text>
+      <text x="426" y="115.725" text-anchor="middle" font-size="9.35" fill="#4a4a4a" font-family="ui-monospace, monospace">240×200</text>
+    </g>
+  
+    <g>
+      <rect x="306" y="206" width="240" height="200" fill="white" />
+      <rect x="306" y="206" width="240" height="200" fill="url(#hatch-2)" stroke="#dc2626" stroke-width="1.5" />
+      <text x="426" y="303.52500000000003" text-anchor="middle" font-size="11" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="426" dy="0">Large Box.Short (2)</tspan></text>
+      <text x="426" y="316.725" text-anchor="middle" font-size="9.35" fill="#4a4a4a" font-family="ui-monospace, monospace">240×200</text>
+    </g>
+  
+</svg>"
+`;
+
+exports[`end-to-end SVG generation > generates consistent SVG requiring multiple boards > board-3 1`] = `
+"<svg xmlns="http://www.w3.org/2000/svg" width="700" height="500" viewBox="0 0 700 500">
+  <defs>
+    <pattern id="hatch-0" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#2563eb" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-1" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(-45)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#16a34a" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+<pattern id="hatch-2" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(0)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#dc2626" stroke-width="0.5" stroke-opacity="0.3" />
+      </pattern>
+  </defs>
+  <rect x="0" y="0" width="700" height="500" fill="none" stroke="#1a1a1a" stroke-width="2" />
+  <rect x="5" y="5" width="690" height="490" fill="none" stroke="#1a1a1a" stroke-width="0.5" stroke-dasharray="4 2" />
+  
+    <g>
+      <rect x="5" y="5" width="240" height="200" fill="white" />
+      <rect x="5" y="5" width="240" height="200" fill="url(#hatch-2)" stroke="#dc2626" stroke-width="1.5" />
+      <text x="125" y="102.52499999999999" text-anchor="middle" font-size="11" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="125" dy="0">Large Box.Short (3)</tspan></text>
+      <text x="125" y="115.725" text-anchor="middle" font-size="9.35" fill="#4a4a4a" font-family="ui-monospace, monospace">240×200</text>
+    </g>
+  
+    <g>
+      <rect x="5" y="206" width="240" height="200" fill="white" />
+      <rect x="5" y="206" width="240" height="200" fill="url(#hatch-2)" stroke="#dc2626" stroke-width="1.5" />
+      <text x="125" y="303.52500000000003" text-anchor="middle" font-size="11" fill="#1a1a1a" font-family="ui-monospace, monospace"><tspan x="125" dy="0">Large Box.Short (4)</tspan></text>
+      <text x="125" y="316.725" text-anchor="middle" font-size="9.35" fill="#4a4a4a" font-family="ui-monospace, monospace">240×200</text>
+    </g>
+  
+</svg>"
+`;

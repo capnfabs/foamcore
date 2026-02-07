@@ -122,7 +122,7 @@ export function renderPanelList(
 // sometimes we directly insert user text into the innerHTML which is _crazy_ fraught; this is an
 // escaping function that's used to prevent XSS I guess.
 // TODO: this is a good enough reason (imo) to move to a framework of some kind.
-function escapeHtml(text: string): string {
+export function escapeHtml(text: string): string {
   const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
