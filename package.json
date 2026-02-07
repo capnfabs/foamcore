@@ -4,7 +4,7 @@
   "description": "Foam core box panel calculator",
   "source": "src/index.html",
   "scripts": {
-    "dev": "parcel",
+    "dev": "parcel --no-cache",
     "build": "parcel build",
     "test": "vitest run",
     "test:watch": "vitest",
