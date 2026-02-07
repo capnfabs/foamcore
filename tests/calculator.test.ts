@@ -4,7 +4,7 @@ import { BoxSpec } from "../src/types";
 
 describe("calculatePanels", () => {
   it("calculates panels for a single box with standard thickness", () => {
-    const boxes: BoxSpec[] = [{ name: "Test Box", width: 100, depth: 80, height: 50 }];
+    const boxes: BoxSpec[] = [{ name: "Test Box", width: 100, depth: 80, height: 50, quantity: 1 }];
     const thickness = 5;
 
     const panels = calculatePanels(boxes, thickness);
@@ -41,8 +41,8 @@ describe("calculatePanels", () => {
 
   it("calculates panels for multiple boxes", () => {
     const boxes: BoxSpec[] = [
-      { name: "Box A", width: 100, depth: 100, height: 100 },
-      { name: "Box B", width: 50, depth: 50, height: 30 },
+      { name: "Box A", width: 100, depth: 100, height: 100, quantity: 1 },
+      { name: "Box B", width: 50, depth: 50, height: 30, quantity: 1 },
     ];
     const thickness = 5;
 
@@ -63,7 +63,7 @@ describe("calculatePanels", () => {
   });
 
   it("handles zero thickness (theoretical case)", () => {
-    const boxes: BoxSpec[] = [{ name: "Zero Thickness", width: 100, depth: 80, height: 50 }];
+    const boxes: BoxSpec[] = [{ name: "Zero Thickness", width: 100, depth: 80, height: 50, quantity: 1 }];
     const thickness = 0;
 
     const panels = calculatePanels(boxes, thickness);
@@ -87,7 +87,7 @@ describe("calculatePanels", () => {
   });
 
   it("handles fractional thickness", () => {
-    const boxes: BoxSpec[] = [{ name: "Thin", width: 100, depth: 100, height: 100 }];
+    const boxes: BoxSpec[] = [{ name: "Thin", width: 100, depth: 100, height: 100, quantity: 1 }];
     const thickness = 3.5;
 
     const panels = calculatePanels(boxes, thickness);
@@ -101,7 +101,7 @@ describe("calculatePanels", () => {
   });
 
   it("preserves box names with special characters", () => {
-    const boxes: BoxSpec[] = [{ name: "Box <with> \"special\" chars", width: 50, depth: 50, height: 50 }];
+    const boxes: BoxSpec[] = [{ name: "Box <with> \"special\" chars", width: 50, depth: 50, height: 50, quantity: 1 }];
     const thickness = 5;
 
     const panels = calculatePanels(boxes, thickness);
