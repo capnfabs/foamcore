@@ -7,7 +7,8 @@
     "dev": "parcel",
     "build": "parcel build",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "check": "tsc --noEmit"
   },
   "devDependencies": {
     "@parcel/config-default": "^2.12.0",
