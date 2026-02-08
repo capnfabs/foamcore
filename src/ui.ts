@@ -7,7 +7,8 @@ export function renderBoxList(
   container: HTMLElement,
   onRemove: (index: number) => void,
   onQuantityChange?: (index: number, quantity: number) => void,
-  oversizedBoxes?: Set<number>
+  oversizedBoxes?: Set<number>,
+  boardConfig?: BoardConfig
 ): void {
   if (boxes.length === 0) {
     container.innerHTML =
@@ -20,7 +21,7 @@ export function renderBoxList(
       (box, index) => `
       <div class="tech-box-item flex items-center justify-between">
         <div class="flex items-center gap-2">
-          ${oversizedBoxes?.has(index) ? '<span title="Panels exceed board size">&#9888;</span>' : ''}
+          ${oversizedBoxes?.has(index) ? `<span title="This box has panels too large for the configured board size (${boardConfig ? `${boardConfig.width}\u00d7${boardConfig.height}mm` : ''})" style="cursor: help; display: inline-flex; align-items: center;"><svg width="1em" height="1em" viewBox="0 0 24 24" style="vertical-align: middle; display: inline-block;"><path d="M12 2L1 21h22L12 2z" fill="#f0ad4e" stroke="#1a1a1a" stroke-width="1.5" stroke-linejoin="round"/><text x="12" y="18" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a" font-family="sans-serif">!</text></svg></span>` : ''}
           <span class="font-medium">${escapeHtml(box.name)}</span>
           <span class="opacity-60">
             ${box.width} × ${box.depth} × ${box.height}
@@ -178,7 +179,7 @@ export function renderBoardWarnings(result: PackingResult, container: HTMLElemen
 
   container.innerHTML = `
     <div class="border-2 border-current p-3 text-sm mb-4">
-      <p class="text-xs uppercase tracking-wide font-semibold mb-2">⚠ Warnings</p>
+      <p class="text-xs uppercase tracking-wide font-semibold mb-2"><svg width="1em" height="1em" viewBox="0 0 24 24" style="vertical-align: middle; display: inline-block;"><path d="M12 2L1 21h22L12 2z" fill="#f0ad4e" stroke="#1a1a1a" stroke-width="1.5" stroke-linejoin="round"/><text x="12" y="18" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a" font-family="sans-serif">!</text></svg> Warnings</p>
       <ul class="space-y-1 list-disc list-inside">
         ${warnings}
       </ul>

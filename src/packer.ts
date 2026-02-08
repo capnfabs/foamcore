@@ -212,7 +212,7 @@ export function packPanels(panels: Panel[], config: BoardConfig = DEFAULT_BOARD_
       unplaceable.push({
         panel,
         instanceIndex,
-        reason: `Panel ${panel.label} (${width}×${height}mm) exceeds usable area (${usable.width}×${usable.height}mm). Minimum board size needed: ${minWidth}×${minHeight}mm`,
+        reason: `${panel.boxName}.${panel.label} (${width}×${height}mm) exceeds usable board area (${usable.width}×${usable.height}mm). Minimum board size needed: ${minWidth}×${minHeight}mm`,
       });
       continue;
     }

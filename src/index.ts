@@ -255,7 +255,8 @@ function updateBoxList(): void {
       saveBoxes();
       recalculate();
     },
-    oversizedBoxes
+    oversizedBoxes,
+    getCurrentBoardConfig()
   );
 }
 

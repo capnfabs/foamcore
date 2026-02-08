@@ -95,7 +95,7 @@ describe("packPanels", () => {
 
     const hugeResult = packPanels(hugePanels);
     expect(hugeResult.unplaceable).toHaveLength(1);
-    expect(hugeResult.unplaceable[0].reason).toContain("exceeds usable area");
+    expect(hugeResult.unplaceable[0].reason).toContain("exceeds usable board area");
     expect(hugeResult.unplaceable[0].reason).toContain("Minimum board size needed");
   });
 
