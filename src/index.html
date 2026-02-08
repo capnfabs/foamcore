@@ -74,7 +74,7 @@
       <!-- Add Box Dialog -->
       <dialog id="add-box-dialog" class="tech-dialog">
         <div class="p-6 w-80">
-          <h2 class="tech-panel-title">Add Box</h2>
+          <h2 id="add-box-dialog-title" class="tech-panel-title">Add Box</h2>
           <div class="grid grid-cols-2 gap-4 mb-4">
             <div class="col-span-2">
               <label class="tech-label" for="box-name">Name</label>
@@ -113,6 +113,7 @@
               />
             </div>
           </div>
+          <div id="add-box-warning" class="hidden text-sm py-2" style="color: #8a6d3b;"></div>
           <div class="flex gap-2">
             <button
               id="add-box-btn"

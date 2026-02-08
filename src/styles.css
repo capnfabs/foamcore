@@ -81,9 +81,14 @@ body {
   color: white;
 }
 
-.tech-btn-primary:hover {
+.tech-btn-primary:hover:not(:disabled) {
   background: white;
   color: var(--color-ink);
+}
+
+.tech-btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 /* Technical label */
